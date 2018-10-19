@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: Simon Berka
+  description: Install and configure Zabbix proxy with sqlite database stored in tmpfs 
+  company: Vaizard Institute
+  license: MIT
+
+  min_ansible_version: 2.6
+
+
+  galaxy_tags:
+    - raspberrypi
+    - monitoring
+    - zabbix-proxy
+    - tmpfs
+
+
+dependencies:
+  - { role: dj-wasabi.zabbix-proxy }

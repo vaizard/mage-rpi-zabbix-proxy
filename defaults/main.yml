@@ -1,0 +1,4 @@
+---
+mage_zabbix_db_folder: /opt/zabbixdb
+mage_zabbix_db_file_name: zabbix.db
+mage_zabbix_folder_size: 256m

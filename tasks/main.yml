@@ -1,0 +1,17 @@
+---
+- name: Create directory for sqlite DB
+  become: true
+  file:
+    path: "{{ mage_zabbix_db_folder }}"
+    state: directory
+    mode: 0777
+
+- name: Mount "{{ mage_zabbix_db_folder }}" as tmpfs partition
+  become: true
+  mount:
+    path: "{{ mage_zabbix_db_folder }}"
+    src: tmpfs
+    fstype: tmpfs
+    opts: "size={{ mage_zabbix_folder_size }}"
+    state: mounted
+
