@@ -1,0 +1,52 @@
+# zabbix proxy conf file created with https://github.com/vaizard/mage-rpi-zabbix-proxy
+
+ProxyMode={{ mage_zabbix_mode }}
+Server={{ mage_zabbix_server_hostname }}
+ServerPort={{ mage_zabbix_server_port }}
+Hostname={{ mage_zabbix_hostname }}
+ListenPort={{ mage_zabbix_trapper_port }}
+PidFile={{ mage_zabbix_pidfile }}
+
+# Log configuration
+LogFile={{ mage_zabbix_log_file }}
+LogFileSize={{ mage_zabbix_log_file_size }}
+DebugLevel={{ mage_zabbix_log_level }}
+
+# Database configuration
+DBHost={{ mage_zabbix_db_host }}
+DBName={{ mage_zabbix_db }}
+
+# Data buffering
+ProxyLocalBuffer={{ mage_zabbix_data_buffer_time }}
+ProxyOfflineBuffer={{ mage_zabbix_data_buffer_time_outage }}
+HeartbeatFrequency={{ mage_zabbix_heartbeat }}
+ConfigFrequency={{ mage_zabbix_configfrequency }}
+DataSenderFrequency={{ mage_zabbix_sendfrequency }}
+
+# Other settings
+StartPollers=4
+StartIPMIPollers=0
+StartPollersUnreachable=1
+StartTrappers=3
+StartPingers=5
+StartDiscoverers=1
+StartHTTPPollers=2
+StartDBSyncers=5
+Timeout=3
+HousekeepingFrequency=12
+CacheSize=8M
+UnreachablePeriod=60
+UnavailableDelay=15
+UnreachableDelay=15
+ExternalScripts=/usr/lib/zabbix/externalscripts
+FpingLocation={{ mage_zabbix_fping }}
+Fping6Location={{ mage_zabbix_fping_6 }}
+TmpDir=/tmp
+
+
+# TLS settings
+{% if mage_zabbix_tls is defined %}
+TLSConnect={{ mage_zabbix_tls }}
+TLSPSKIdentity={{ mage_zabbix_tls_psk_identity }}
+TLSPSKFile={{ mage_zabbix_tls_psk_file }}
+{% endif %}
