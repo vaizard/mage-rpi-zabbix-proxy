@@ -1,4 +1,7 @@
 ---
+- name: Prepare system and install required packages
+  include: prepare.yml
+
 - name: Create directory for sqlite DB
   become: true
   file:
@@ -15,3 +18,17 @@
     opts: "size={{ mage_zabbix_folder_size }}"
     state: mounted
 
+- name: Install Zabbix proxy
+  include: zabbix.yml
+
+- name: Prepare database
+  include: db.yml
+
+
+- name: "Start Zabbix proxy"
+  become: true
+  service:
+    enabled: yes
+    name: zabbix-proxy
+    state: started
+    

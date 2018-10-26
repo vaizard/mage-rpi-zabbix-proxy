@@ -1,0 +1,35 @@
+---
+- name: Add Zabbix repository
+  get_url:
+    url: "https://repo.zabbix.com/zabbix/4.0/raspbian/pool/main/z/zabbix-release/{{ mage_zabbix_debfile }}"
+    dest: /tmp/zabbix.deb
+  tags: ['rpi']
+
+- name: Add Zabbix repository
+  become: true
+  shell: dpkg -i zabbix.deb
+  tags: ['rpi']
+
+- name: Update repository cache and install Zabbix proxy
+  become: true
+  apt:
+    update_cache: yes
+    state: latest
+    name: zabbix-proxy-sqlite3
+
+- name: Create directory for modules
+  become: true
+  file:
+    path: "{{ mage_zabbix_moduledir }}"
+    state: directory
+    owner: zabbix
+    group: zabbix
+
+- name: "Configure Zabbix proxy"
+  become: true
+  when: mage_zabbix_conf_overwrite
+  template:
+    src: zabbix_proxy.conf.j2
+    dest: /etc/zabbix/zabbix_proxy.conf
+    owner: zabbix
+    group: zabbix
