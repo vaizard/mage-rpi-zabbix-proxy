@@ -31,4 +31,5 @@
     enabled: yes
     name: zabbix-proxy
     state: started
+  tags: ['rpi']
     
