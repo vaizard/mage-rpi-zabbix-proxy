@@ -1,0 +1,9 @@
+---
+- name: Add Zabbix repository for testing
+  get_url:
+    url: "https://repo.zabbix.com/zabbix/4.0/debian/pool/main/z/zabbix-release/{{ mage_zabbix_debfile }}"
+    dest: /tmp/zabbix.deb
+
+- name: Add Zabbix repository
+  become: true
+  shell: dpkg -i /tmp/zabbix.deb

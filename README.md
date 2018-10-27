@@ -1,6 +1,8 @@
 mage-rpi-zabbix-proxy
 =====================
 
+[![Build Status](https://travis-ci.org/vaizard/mage-rpi-zabbix-proxy.svg?branch=master)](https://travis-ci.org/vaizard/mage-rpi-zabbix-proxy)
+
 Install and configure Zabbix proxy on Raspberry Pi.
 
 This role uses sqlite3 database stored in tmpfs drive to prolong the life of SD card. After reboot the database is automatically restored.

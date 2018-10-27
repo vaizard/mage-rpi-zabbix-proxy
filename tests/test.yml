@@ -1,5 +1,18 @@
 ---
-- hosts: localhost
-  remote_user: root
+- name: Bring up docker containers
+  hosts: localhost
   roles:
-    - mage-zabbix-proxy
+    - { role: provision_docker, provision_docker_privileged: "{{ true }}", provision_docker_inventory_group: "{{ groups['debian'] }}" }
+
+
+- name: debian9
+  hosts: docker_containers
+  pre_tasks:
+    - include: roles/zabbix_repo.yml
+  roles:
+    - role: mage_rpi_zabbix_proxy
+      mage_zabbix_conf_overwrite: true
+  post_tasks:
+    - name: "Start Zabbix proxy"
+      become: true
+      shell: zabbix_proxy -c /etc/zabbix/zabbix_proxy.conf

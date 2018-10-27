@@ -1,2 +1,2 @@
-localhost
-
+[debian]
+debian9 image="geerlingguy/docker-debian9-ansible"
