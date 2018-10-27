@@ -7,7 +7,7 @@
 
 - name: Add Zabbix repository
   become: true
-  shell: dpkg -i zabbix.deb
+  shell: dpkg -i /tmp/zabbix.deb
   tags: ['rpi']
 
 - name: Update repository cache and install Zabbix proxy
@@ -25,9 +25,16 @@
     owner: zabbix
     group: zabbix
 
+- name: Check if configuration file already exists
+  become: true
+  stat:
+    path: /etc/zabbix/zabbix_proxy.conf
+  register: zabbix_conf_exists
+  tags: ['db_deploy']
+
 - name: "Configure Zabbix proxy"
   become: true
-  when: mage_zabbix_conf_overwrite
+  when: mage_zabbix_conf_overwrite or zabbix_conf_exists.stat.exists == False
   template:
     src: zabbix_proxy.conf.j2
     dest: /etc/zabbix/zabbix_proxy.conf
